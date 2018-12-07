@@ -1,5 +1,5 @@
 import { game, Sprite } from "./sgc/sgc.js";
-game.setBackground("floor.png");
+game.setBackground("space.png");
 
 class TicTacToe extends Sprite {
     constructor() {
@@ -26,7 +26,6 @@ class TicTacToe extends Sprite {
             squareSymbol = this.squareSymbolForHumanPlayer;
         }
         let winningMoves = 0;
-        // check rows
         for (let row = 0; row < this.size; row = row + 1) {
             let emptyCount = 0;
             let markerCount = 0;
@@ -37,7 +36,6 @@ class TicTacToe extends Sprite {
                 else if (this.getSquareSymbol(row, col) === squareSymbol) {
                     markerCount = markerCount + 1;
                 }
-                // ADD CODE HERE THAT COUNTS EMPTY SQUARES AND MARKER SQUARES IN THE ROW
             }
             if (emptyCount === 1 && markerCount === 2) {
                 winningMoves = winningMoves + 1;
@@ -58,8 +56,6 @@ class TicTacToe extends Sprite {
                 winningMoves = winningMoves + 1;
             }
         }
-
-        // check first diagonal
         let emptyCount = 0;
         let markerCount = 0;
         if (this.getSquareSymbol(0, 0) === this.emptySquareSymbol) {
@@ -83,8 +79,6 @@ class TicTacToe extends Sprite {
         if (emptyCount === 1 && markerCount === 2) {
             winningMoves = winningMoves + 1;
         }
-
-        // check second diagonal
         if (this.getSquareSymbol(2, 0) === this.emptySquareSymbol) {
             emptyCount = emptyCount + 1;
         }
@@ -126,14 +120,14 @@ class TicTacToe extends Sprite {
         this.dataModel[row][col] = this.emptySquareSymbol;
     }
     gameIsWon() {
-        // diagonal 1
+        // diagonal left to right
         if (this.dataModel[0][0] === this.dataModel[1][1] &&
             this.dataModel[1][1] === this.dataModel[2][2] &&
             this.dataModel[2][2] !== this.emptySquareSymbol
         ) {
             return true;
         }
-        // diagonal 2
+        // diagonal right to left
         if (this.dataModel[2][0] === this.dataModel[1][1] &&
             this.dataModel[1][1] === this.dataModel[0][2] &&
             this.dataModel[0][2] !== this.emptySquareSymbol) {
@@ -193,18 +187,18 @@ class TicTacToe extends Sprite {
     }
     takeTurns() {
         if (this.gameIsWon()) {
-            let message = '        Game Over.\n        ';
+            let message = '        Mission';
             if (this.activeMarker instanceof PrincessMarker) {
-                message = message + 'The Princess wins.';
+                message = message + 'Successful! \n The Smile Has Finally Defeated The Frown!';
             }
             else if (this.activeMarker instanceof StrangerMarker) {
-                message = message + 'The Stranger wins.';
+                message = message + 'Failed! \n The Frown Has Won The Final Battle! \n Better Luck Next Time Scrub.';
             }
             game.end(message);
             return;
         }
         if (this.gameIsDrawn()) {
-            game.end('        Game Over.\n        The game ends in a draw.');
+            game.end('        What A Tie?.\n        There Shall Never Be A Tie! \n        Hit The Refresh Button Now!');
             return;
         }
 
@@ -265,7 +259,7 @@ class Marker extends Sprite {
 
 class PrincessMarker extends Marker {
     constructor(board) {
-        super(board, "annFace.png", "Princess Ann");
+        super(board, "smile.png", "Princess Ann");
         this.board = board;
         this.dragging = false;
         this.board.squareSymbolForHumanPlayer = this.squareSymbol;
@@ -301,7 +295,7 @@ class PrincessMarker extends Marker {
 
 class StrangerMarker extends Marker {
     constructor(board) {
-        super(board, 'strangerFace.png', "Stranger");
+        super(board, 'frown.png', "Stranger");
         this.board = board;
     }
     handleGameLoop() {
