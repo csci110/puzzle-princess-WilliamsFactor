@@ -4,3 +4,6 @@ game.preloadImage("floor.png");
 game.preloadImage("annFace.png");
 game.preloadImage("strangerFace.png");
 game.preloadImage("board.png");
+game.preloadImage("smile.png");
+game.preloadImage("frown.png");
+game.preloadImage("space.png");

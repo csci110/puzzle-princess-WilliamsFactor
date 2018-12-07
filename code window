@@ -1,0 +1,11 @@
+gameController.backgroundImageFile = 'floor.png';
+gameController.preloadImages('princessFace.png', 'strangerFace.png', 'board.png');
+
+class Marker {  }
+class PrincessMarker extends Marker {   }
+class StrangerMarker extends Marker {   }
+class TicTacToe {   }
+
+gameController.startGame();
+let theGame = new TicTacToe();
+theGame.takeTurns();
